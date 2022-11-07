@@ -21,7 +21,7 @@ from openpyxl.styles import Color, PatternFill, Font, Border
 class Window(QMainWindow, Ui_Dialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.wb2 = None
+        self.wbHappyData = None
         self.columns = None
         self.setupUi(self)
 
@@ -35,28 +35,45 @@ class Window(QMainWindow, Ui_Dialog):
 
         self.path2 = './2.xlsx'
 
-
+    ### По нажатию на ячейку в таблице раздачи, взять все строки в которых есть имя покупателя из happy.
     def cellClicked(self, row, column):
-        print(row, column)
         while (self.table_3.rowCount() > 0):
             self.table_3.removeRow(0)
 
-        self.table_3.setRowCount(self.table_2.rowCount())
-        self.table_3.setColumnCount(self.table_2.columnCount())
+        rowCount = self.table_2.rowCount()
+        columnCount = self.table_2.columnCount()
+        self.table_3.setRowCount(rowCount)
+        self.table_3.setColumnCount(columnCount)
 
         clickedRowText = self.table.item(row, 1).text()
         print(clickedRowText)
         self.label_3.setText(clickedRowText)
         lastRowInsertedIndex = 0
-        for rowIndex in range(self.table_2.rowCount()):
-            rowText = self.table_2.item(rowIndex, 0).text()
-            print(rowText)
-            print(rowText == clickedRowText)
-            if rowText == clickedRowText:
-                for columnIndex in range(self.table_2.columnCount()):
-                    row = self.table_2.item(rowIndex, columnIndex).text()
-                    tableItem = QTableWidgetItem(row)
-                    self.table_3.setItem(lastRowInsertedIndex, columnIndex, tableItem)
+        for rowIndex in range(rowCount):
+            isInsertRow = False
+            print(rowIndex)
+            for columnIndex in range(columnCount):
+                print(rowIndex, columnIndex)
+                print(columnCount)
+                cell = self.table_2.item(rowIndex, columnIndex)
+                print(cell)
+                if cell != None:
+                    cellText = cell.text()
+                    print(cellText)
+
+                    if cellText != None and cellText == clickedRowText:
+                        print('ASDASD')
+                        isInsertRow = True
+                        break
+            print(isInsertRow)
+
+            if isInsertRow:
+                for columnIndex in range(columnCount):
+                    cell = self.table_2.item(rowIndex, columnIndex)
+                    if cell != None:
+                        cellText = cell.text()
+                        tableItem = QTableWidgetItem(cellText)
+                        self.table_3.setItem(lastRowInsertedIndex, columnIndex, tableItem)
                 lastRowInsertedIndex += 1
 
         self.table_3.setColumnWidth(2, 300)
@@ -101,6 +118,7 @@ class Window(QMainWindow, Ui_Dialog):
 
         wb.save(filename)
 
+    ### Загрузить razdacha.xlsx.
     def loadRazdacha(self):
         while (self.table_3.rowCount() > 0):
             self.table_3.removeRow(0)
@@ -128,11 +146,10 @@ class Window(QMainWindow, Ui_Dialog):
         self.table.setColumnWidth(2, 300)
 
 
-
+    ### Загруить happy.xlsx. Все страницы в таблицу
     def loadHappyData(self):
-        sheetName = '135-27.12'
         wb_obj = openpyxl.load_workbook(self.path2)
-        self.wb2 = wb_obj
+        self.wbHappyData = wb_obj
         rowCount = 0
         columnMaximum = 0
         for sheet in wb_obj.worksheets:
@@ -140,21 +157,16 @@ class Window(QMainWindow, Ui_Dialog):
             if sheet.max_column > columnMaximum:
                 columnMaximum = sheet.max_column
 
-        print(rowCount)
         self.table_2.setRowCount(rowCount)
         self.table_2.setColumnCount(columnMaximum)
         rowIndex = 0
         for sheet in wb_obj.worksheets:
-            print(sheet)
-
             for i in range(1, sheet.max_row + 1):
                 for j in range(1, sheet.max_column + 1):
                     cell_obj = sheet.cell(row=i, column=j)
-
                     tableItem = QTableWidgetItem(str(cell_obj.value or ''))
 
                     self.table_2.setItem(rowIndex, j - 1, tableItem)
-                    print(cell_obj.value)
 
                     colorHex = cell_obj.fill.start_color.index
                     if (colorHex == 'FFFFFF00'):
