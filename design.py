@@ -48,9 +48,6 @@ class Ui_Dialog(object):
         self.saveRazdachaBtn = QtWidgets.QPushButton(Dialog)
         self.saveRazdachaBtn.setGeometry(QtCore.QRect(790, 140, 121, 41))
         self.saveRazdachaBtn.setObjectName("saveRazdachaBtn")
-        self.saveHappyBtn = QtWidgets.QPushButton(Dialog)
-        self.saveHappyBtn.setGeometry(QtCore.QRect(790, 270, 121, 41))
-        self.saveHappyBtn.setObjectName("saveHappyBtn")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -64,4 +61,3 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "РАЗДАЧА 2021.xlsx"))
         self.label_3.setText(_translate("Dialog", "Результат"))
         self.saveRazdachaBtn.setText(_translate("Dialog", "Сохранить раздачу"))
-        self.saveHappyBtn.setText(_translate("Dialog", "Сохранить Happy"))

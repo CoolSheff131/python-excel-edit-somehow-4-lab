@@ -27,7 +27,6 @@ class Window(QMainWindow, Ui_Dialog):
 
         self.loadRazdachaBtn.clicked.connect(self.loadRazdacha)
         self.loadHappyBtn.clicked.connect(self.loadHappyData)
-        self.saveHappyBtn.clicked.connect(self.saveHappyData)
         self.saveRazdachaBtn.clicked.connect(self.saveRazdacha)
 
         self.table.cellClicked.connect(self.cellClicked)
@@ -63,14 +62,6 @@ class Window(QMainWindow, Ui_Dialog):
         self.table_3.setColumnWidth(2, 300)
 
     def saveRazdacha(self):
-
-        # df = pd.DataFrame()
-        # for row in range(self.table.rowCount()):
-        #     for col in range(self.table.columnCount()):
-        #         print(self.table.item(row, col).text())
-        #         df.at[row - 2, col] = self.table.item(row, col).text()
-        # df.to_excel('./Dummy File XYZ.xlsx', index=False,header=False)
-
         filename = '2self.path1.xlsx'
         table = self.table
         print('Save razdacha')
@@ -105,14 +96,6 @@ class Window(QMainWindow, Ui_Dialog):
                                               fill_type='solid')
 
                     sheet.cell(row+1, column+1).fill = redFill
-
-                    # colorHex = cell_obj.fill.start_color.index
-                    # if (colorHex == 'FFFFFF00'):
-                    #     tableItem.setBackground(Qt.yellow);
-                    # elif (colorHex == 7):
-                    #     tableItem.setBackground(Qt.red);
-                    # elif (colorHex == 'FF92D050'):
-                    #     tableItem.setBackground(Qt.green);
                 except AttributeError:
                     pass
 
@@ -144,38 +127,45 @@ class Window(QMainWindow, Ui_Dialog):
                     tableItem.setBackground(Qt.green);
         self.table.setColumnWidth(2, 300)
 
-    def saveHappyData(self):
-        # self.wb2.save(self.path2)
-        print('Save happy')
 
-        self.export(self, self.path2, self.table_2)
 
     def loadHappyData(self):
         sheetName = '135-27.12'
         wb_obj = openpyxl.load_workbook(self.path2)
         self.wb2 = wb_obj
-        sheet_obj = wb_obj[sheetName]
-        m_row = sheet_obj.max_row
-        m_column = sheet_obj.max_row
-        self.table_2.setRowCount(m_row)
-        self.table_2.setColumnCount(m_column)
-        for i in range(1, m_row + 1):
-            for j in range(1, m_column + 1):
-                cell_obj = sheet_obj.cell(row=i, column=j)
-                tableItem = QTableWidgetItem(str(cell_obj.value or ''))
-                self.table_2.setItem(i - 1, j - 1, tableItem)
-                colorHex = cell_obj.fill.start_color.index
-                if (colorHex == 'FFFFFF00'):
-                    tableItem.setBackground(Qt.yellow);
-                elif (colorHex == 7):
-                    tableItem.setBackground(Qt.red);
-                elif (colorHex == 'FF92D050'):
-                    tableItem.setBackground(Qt.green);
+        rowCount = 0
+        columnMaximum = 0
+        for sheet in wb_obj.worksheets:
+            rowCount += sheet.max_row
+            if sheet.max_column > columnMaximum:
+                columnMaximum = sheet.max_column
+
+        print(rowCount)
+        self.table_2.setRowCount(rowCount)
+        self.table_2.setColumnCount(columnMaximum)
+        rowIndex = 0
+        for sheet in wb_obj.worksheets:
+            print(sheet)
+
+            for i in range(1, sheet.max_row + 1):
+                for j in range(1, sheet.max_column + 1):
+                    cell_obj = sheet.cell(row=i, column=j)
+
+                    tableItem = QTableWidgetItem(str(cell_obj.value or ''))
+
+                    self.table_2.setItem(rowIndex, j - 1, tableItem)
+                    print(cell_obj.value)
+
+                    colorHex = cell_obj.fill.start_color.index
+                    if (colorHex == 'FFFFFF00'):
+                        tableItem.setBackground(Qt.yellow);
+                    elif (colorHex == 7):
+                        tableItem.setBackground(Qt.red);
+                    elif (colorHex == 'FF92D050'):
+                        tableItem.setBackground(Qt.green);
+                rowIndex += 1
         self.table_2.setColumnWidth(2, 300)
 
-    def export(self, filename, table):
-        print('saave')
-        # filename, filter = QtWidgets.QFileDialog.getSaveFileName(self, 'Save file', '','Excel files (*.xlsx)')
 
 
 

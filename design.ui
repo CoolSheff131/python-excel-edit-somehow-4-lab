@@ -121,19 +121,6 @@
     <string>Сохранить раздачу</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="saveHappyBtn">
-   <property name="geometry">
-    <rect>
-     <x>790</x>
-     <y>270</y>
-     <width>121</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Сохранить Happy</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>
