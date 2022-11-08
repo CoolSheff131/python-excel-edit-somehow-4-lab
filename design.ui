@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>932</width>
+    <width>1167</width>
     <height>912</height>
    </rect>
   </property>
@@ -37,16 +37,6 @@
    </property>
    <property name="text">
     <string>Загрузить Happy</string>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="table">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>40</y>
-     <width>751</width>
-     <height>331</height>
-    </rect>
    </property>
   </widget>
   <widget class="QTableWidget" name="table_2">
@@ -120,6 +110,36 @@
    <property name="text">
     <string>Сохранить раздачу</string>
    </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>761</width>
+     <height>321</height>
+    </rect>
+   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Tab 1</string>
+    </attribute>
+    <widget class="QTableView" name="tableView">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>721</width>
+       <height>271</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Tab 2</string>
+    </attribute>
+   </widget>
   </widget>
  </widget>
  <resources/>
