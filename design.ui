@@ -141,6 +141,45 @@
     </attribute>
    </widget>
   </widget>
+  <widget class="QPushButton" name="makeGreenButton">
+   <property name="geometry">
+    <rect>
+     <x>950</x>
+     <y>70</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Сделать зеленой</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="makeYellowButton">
+   <property name="geometry">
+    <rect>
+     <x>950</x>
+     <y>130</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Сделать желтой</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="makeRedButton">
+   <property name="geometry">
+    <rect>
+     <x>950</x>
+     <y>200</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Сделать красной</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

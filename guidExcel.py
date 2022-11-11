@@ -27,19 +27,43 @@ class Window(QMainWindow, Ui_Dialog):
         self.wbHappyData = None
         self.columns = None
         self.setupUi(self)
+        self.selectedCell = None
 
         self.loadRazdachaBtn.clicked.connect(self.loadRazdacha)
         self.loadHappyBtn.clicked.connect(self.loadHappyData)
         self.saveRazdachaBtn.clicked.connect(self.saveRazdacha)
+
+        self.makeGreenButton.clicked.connect(self.makeCellGreen)
+        self.makeYellowButton.clicked.connect(self.makeCellYellow)
+        self.makeRedButton.clicked.connect(self.makeCellRed)
 
 
         self.path1 = './self.path1.xlsx'
 
         self.path2 = './2.xlsx'
 
+    def makeCellGreen(self):
+        if self.selectedCell == None:
+            return
+        self.selectedCell.setBackground(Qt.green);
+
+    def makeCellYellow(self):
+        if self.selectedCell == None:
+            return
+        self.selectedCell.setBackground(Qt.yellow);
+
+    def makeCellRed(self):
+        if self.selectedCell == None:
+            return
+        self.selectedCell.setBackground(Qt.red);
+
     ### По нажатию на ячейку в таблице раздачи, взять все строки в которых есть имя покупателя из happy.
     def cellClicked(self, row, column):
         table = self.tabWidget.currentWidget()
+        print(row, column)
+        self.selectedCell = table.item(row,column)
+        return
+
         while (self.table_3.rowCount() > 0):
             self.table_3.removeRow(0)
 
@@ -65,7 +89,6 @@ class Window(QMainWindow, Ui_Dialog):
                     print(cellText)
 
                     if cellText != None and cellText == clickedRowText:
-                        print('ASDASD')
                         isInsertRow = True
                         break
             print(isInsertRow)
