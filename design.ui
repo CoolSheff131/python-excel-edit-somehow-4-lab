@@ -145,7 +145,7 @@
    <property name="geometry">
     <rect>
      <x>950</x>
-     <y>70</y>
+     <y>160</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -158,7 +158,7 @@
    <property name="geometry">
     <rect>
      <x>950</x>
-     <y>130</y>
+     <y>220</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -171,13 +171,26 @@
    <property name="geometry">
     <rect>
      <x>950</x>
-     <y>200</y>
+     <y>290</y>
      <width>111</width>
      <height>41</height>
     </rect>
    </property>
    <property name="text">
     <string>Сделать красной</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="filterBtn">
+   <property name="geometry">
+    <rect>
+     <x>950</x>
+     <y>350</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Отфильтровать</string>
    </property>
   </widget>
  </widget>

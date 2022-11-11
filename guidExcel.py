@@ -36,7 +36,8 @@ class Window(QMainWindow, Ui_Dialog):
         self.makeGreenButton.clicked.connect(self.makeCellGreen)
         self.makeYellowButton.clicked.connect(self.makeCellYellow)
         self.makeRedButton.clicked.connect(self.makeCellRed)
-
+        # self.filterButton.clicked.connect(self.filterData)
+        self.filterBtn.clicked.connect(self.filterData)
 
         self.path1 = './self.path1.xlsx'
 
@@ -62,7 +63,15 @@ class Window(QMainWindow, Ui_Dialog):
         table = self.tabWidget.currentWidget()
         print(row, column)
         self.selectedCell = table.item(row,column)
+        self.selectedRowIndex = row
         return
+
+
+
+
+    def filterData(self):
+        if self.selectedCell == None:
+            return
 
         while (self.table_3.rowCount() > 0):
             self.table_3.removeRow(0)
@@ -71,11 +80,12 @@ class Window(QMainWindow, Ui_Dialog):
         columnCount = self.table_2.columnCount()
         self.table_3.setRowCount(rowCount)
         self.table_3.setColumnCount(columnCount)
+        table = self.tabWidget.currentWidget()
 
-        clickedRowText = table.item(row, 1).text()
-        print(clickedRowText)
+        clickedRowText = table.item(self.selectedRowIndex, 1).text()
         self.label_3.setText(clickedRowText)
         lastRowInsertedIndex = 0
+
         for rowIndex in range(rowCount):
             isInsertRow = False
             print(rowIndex)
